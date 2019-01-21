@@ -34,12 +34,12 @@ import FormDemo from './snippets/FormDemo'
 </Head>
 
   
-# <React 🏄/> 
-###  Users and SSP: The gathering
+# <React 🇧🇷/> 
+###  tudo vai bem sentes-te feliz!
 
 
 
-###### Hervé Bourzeix - Octobre '18 💻
+###### Hervé Bourzeix - January '19 💻 
 
 
 
@@ -53,7 +53,7 @@ import FormDemo from './snippets/FormDemo'
 
 ---
  
-## Our journey
+## 🛫 Our journey 🛬
 
 
     Introduction to React 
@@ -234,7 +234,23 @@ code={`
 
 ---
 
-<CodeSurfer title="Properties" 
+<CodeSurfer title="Properties: alias"
+    steps={[{  }]}
+    code={`
+            const user = {firstName:"Pierre",lastName:"Chappaz"}
+        
+            const {
+                firstName : prenom,
+                lastName: nom
+            } = user
+            
+            console.info(prenom,nom)
+`}
+/>
+
+---
+
+<CodeSurfer title="Properties: dynamic" 
     steps={[{  }]}
     code={`
     const propertyName = 'lastName'
@@ -420,7 +436,7 @@ HTML class attribute is "className"
 React.createElement(
   MyComponent,
   { name: "users" },
-  React.createElement("h1", {name:"users"}, "💪")
+  React.createElement("h1", null, "💪")
 )
 `}
 </Code></div>
@@ -733,7 +749,7 @@ An API with methods to ease rendering
 
 (Component) => (EnhancedComponent) 
 
-Use HOCs For Cross-Cutting Concerns
+Use HoCs For Cross-Cutting Concerns
 
 ---
 
