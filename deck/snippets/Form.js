@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class Settings extends Component {
-  onSave = () => {
+  onSaveHandle = () => {
     const { onSave } = this.props;
     onSave({
       level: this.formRef["level"].value,
@@ -24,7 +24,7 @@ class Settings extends Component {
             <option>Nature</option>
           </select>
         </form>
-        <button type="button" onClick={this.onSave}>
+        <button type="button" onClick={this.onSaveHandle}>
           Save
         </button>
       </div>

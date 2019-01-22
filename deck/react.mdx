@@ -107,7 +107,7 @@ import FormDemo from './snippets/FormDemo'
 
 <Appear>
     <div>This is a library to build UI</div>
-    <div>focus on how should look the UI 
+    <div>focus on how the UI should look 
     Rather than how to change it</div>
 </Appear>
 
@@ -204,7 +204,7 @@ EcmaScript 🚀
 code={`
     const foo1 = () => ({})
     
-    const foo2 = () => { return 1337}
+    const foo2 = () => { return 1337 }
     
     const foo3 = ({} = {p}) => ({p})
 `}
@@ -222,8 +222,8 @@ code={`
     const firstName = "Pierre"
     const lastName = "Chappaz"
     const user = {
-        firstName : firstName,
-        lastName:lastName
+        firstName: firstName,
+        lastName: lastName
     }
     // shortcut as 
     const user = {firstName,lastName}
@@ -240,7 +240,7 @@ code={`
             const user = {firstName:"Pierre",lastName:"Chappaz"}
         
             const {
-                firstName : prenom,
+                firstName: prenom,
                 lastName: nom
             } = user
             
@@ -313,7 +313,7 @@ Object.assign(...)
 
 <Code>{`
     const o1 = {firstName: "Tim"}
-    const o2 = {lastName:"Barners-Lee" ,city: "london" }
+    const o2 = {lastName:"Barners-Lee", city: "london"}
     const user = Object.assign({},o1,o2)
 `}</Code>
 
