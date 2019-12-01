@@ -1,4 +1,4 @@
-import { Head,Image,Appear } from 'mdx-deck'
+import { Head,Image,Appear,Notes } from 'mdx-deck'
 
 import {
   CodeSurfer,
@@ -30,12 +30,6 @@ export const theme = github;
 
 ###### 💻 Hervé Bourzeix - December '19 
 
----
-
-
-Github repo [react-training](https://github.com/hbourzeix/react-training)
-
-### Issues and PRs are welcomed ❤
 
 ---
 
@@ -48,6 +42,12 @@ Github repo [react-training](https://github.com/hbourzeix/react-training)
 
 ## 👨 
 ## Who am I ❓ 
+
+---
+
+## What is your level ? 
+
+
 
 ---
  
@@ -70,21 +70,25 @@ Component & lifecycle
 State and Context
 plumbing
 forms
+--> time for a break 🏝️
 Optimization
 Design patterns like HoC
-time for a break 🏝️
+
 ```
 
 ```js title="🏪 Redux"
 taxonomy and rules 
 APIs
+ --> time for the lunch 🍖️
 good practices
 optimizations
-time for the lunch 🍖️
 ```
 
 ```js title="⚒️ Workshop"
-🍻 LET'S CODE SOMETHING 🍻          
+🍻 LET'S CODE SOMETHING 🍻  
+
+// TODO URL to codesandbox
+        
 ```
 
 
@@ -94,7 +98,7 @@ time for the lunch 🍖️
  
 ---
 
-    Ready
+    Ready?
 
 ---
 
@@ -105,6 +109,71 @@ EcmaScript 🚀
 
 https://github.com/tc39/proposals/blob/master/finished-proposals.md
 
+---
+
+##  Babel 
+   
+What is Babel? 
+
+the journey from 5to6 to Babel 7!
+
+https://astexplorer.net
+
+https://babeljs.io/repl
+
+---
+
+<CodeSurfer>
+
+```js
+
+var never_use_me_again = "ever"
+
+let i_can_be_mutated = "bad smell but few use cases"
+
+const most_used = "my ref can't be mutated"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js
+   
+    true == "1"
+    true === "1"
+   
+    12 == "12"
+    12 === "12"
+    
+    [] == []
+    [] === []    
+   
+    {} == {}
+    {} === {}
+   
+   ```
+
+</CodeSurfer>
+
+---
+
+
+<CodeSurfer>
+
+```js
+
+    NaN === NaN        
+   
+```
+
+</CodeSurfer>
+
+---
+# No native deep equal , use lodash
 
 ---
 
@@ -151,7 +220,6 @@ const {
     // can omit, unwanted values
     const [, token] = /[#?&]access_token=([\w]{32})/.exec(path)
 ```
-
 
 </CodeSurfer>
 
@@ -309,8 +377,25 @@ const user = [...a1,...a2]
 // no more "arguments" with fat arrows
 const takeFirstArg = (first,...others) => first
 const takeFirst = ([first,...others]) => first 
-const  
-omitLastName = ({lastName,...anyOtherProps}) => ({...anyOtherProps})
+const omitLastName = ({lastName,...anyOtherProps}) => ({...anyOtherProps})
+
+```    
+
+</CodeSurfer>
+
+---
+
+## ES6 Template  
+
+<CodeSurfer> 
+
+```js 
+        
+const a = "hello"
+const myTemplate = `${1+2} ${a}`
+String.raw`${1+2} ${a}`
+const log = (...args) => console.info(...args) 
+log`${1+2} ${a}`
 
 ```    
 
@@ -320,12 +405,12 @@ omitLastName = ({lastName,...anyOtherProps}) => ({...anyOtherProps})
 
 ### More to learn
 
+
 http://javascript.info/
 
 [Lodash is your friend](https://lodash.com/)
 
 [You don't (always) need Lodash](https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore)
-
 
 ---
 
@@ -389,11 +474,11 @@ import test2 from './assets/table.png'
 
 ---
 
-## What is React
+## What is React? 
 
 <Appear>
     <div>This is a library to build UI</div>
-    <div>focus on how should look the UI Rather than how to change it</div>
+    <div>focus on how should look the UI rather than how to change it</div>
 </Appear>
 
 ---
@@ -408,6 +493,13 @@ import test2 from './assets/table.png'
 
 ---
 
+import virtual_dom_diff from './assets/virtual_dom_diff.jpg'
+
+<img src={virtual_dom_diff}/>
+
+---
+
+
 ## Virtual DOM 
 
 React fiber: 
@@ -415,13 +507,7 @@ https://claudiopro.github.io/react-fiber-vs-stack-demo/
     
 ---
 
-## Event Delegate 
-
-React mutualise event listener
-
----
-
-## Declarative & Composable
+## JSX: Declarative & Composable
 
 <CodeSurfer>
 
@@ -447,23 +533,19 @@ React mutualise event listener
 
 ---
 
+## Event Delegate 
 
-## ES2015 and beyond with Babel 
-   
-What is Babel? 
+JSX event are camel case: onClick vs onclick 
 
-the journey from 5to6 to Babel 7!
+React mutualise event listener
 
-
-https://astexplorer.net
-
-https://babeljs.io/repl
+You should not call addEventListener
 
 ---
 
 <CodeSurfer>
 
-```js title="JSX" 
+```js title="JSX in detail" 
     <MyComponent 
         name="users" 
         data={[1,2,3]} 
@@ -489,8 +571,6 @@ https://babeljs.io/repl
 
 
 </CodeSurfer>
-
-
 
 
 ---
@@ -588,7 +668,8 @@ React.createElement(MyComponent, {
 </CodeSurferColumns>
 
 
----
+--- 
+
 
 <Appear>
     <div>JSX Prevents Injection Attacks</div>
@@ -597,6 +678,7 @@ React.createElement(MyComponent, {
 </Appear>
 
 ---
+
 
 <CodeSurfer>
 
@@ -624,6 +706,17 @@ const Message = ({message}) => console.info(message) || <div>{message}</div>
 
 ---
 
+## React components
+
+
+<Appear>
+    <div>must have a render function</div>
+    <div>may have properties</div>
+    <div>may have a state</div>
+    <div>may have lifecycle methods</div>
+</Appear>
+
+---
 
 
 <CodeSurfer>
@@ -662,60 +755,437 @@ const Component = ({name}) => <h1>{name}</h1>
 
 ---
 
-## Refs
+## Stateful component
 
-createRef
+<CodeSurfer title="Stateful component">
+
+```js
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { counter: 0 };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(({ counter }) => ({
+      counter: counter + 1
+    }));
+  }
+
+  render() {
+    return (
+      <>
+        <h1>{this.state.counter}</h1>
+        <button onClick={this.handleClick}>click me</button>
+      </>
+    );
+  }
+}
+```
+</CodeSurfer>
 
 ---
 
-## Form
 
-Controlled field 
+## Stateful component
 
-Uncontrolled field 
+Using https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
 
-https://codesandbox.io/s/62w0k9364w
+<CodeSurfer title="Stateful component">
 
-https://codesandbox.io/s/stoic-haze-3jmzf
+```js
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { counter: 0 };    
+  }
+
+  handleClick = () => {
+    this.setState(({ counter }) => ({
+      counter: counter + 1
+    }));
+  }
+
+  render() {
+    return (
+      <>
+        <h1>{this.state.counter}</h1>
+        <button onClick={this.handleClick}>click me</button>
+      </>
+    );
+  }
+}
+```
+</CodeSurfer>
+
+---
+
+## Lifecycle
+
+<Appear>
+    <div>constructor</div>
+    <div>render</div>
+    <div>componentDidMount</div>
+    <div>componentDidUpdate</div>
+    <div>componentWillUnmount</div>
+    <div>shouldComponentUpdate</div>    
+    <div> More lifecycles are available checkout the documentation</div>   
+</Appear>
+
+---
+
+import scu from './assets/should-component-update.png'
+
+## Rendering
+
+
+<img src={scu}/>
+
+---
+
+## Rendering
+
+
+React doesn't optimize the computation
+
+React optimize the rendering
+
+---
+
+
+## Optimizing stateful component
+
+
+<CodeSurfer> 
+
+```js subtitle="https://codesandbox.io/s/shouldcomponentupdate-48bfy"
+
+class Person extends React.Component {
+  render() {
+    console.info("RENDER");
+    const { lastName, firstName, city } = this.props;
+    return (
+      <ul>
+        <li>{lastName}</li>
+        <li>{firstName}</li>
+        <li>{city}</li>
+      </ul>
+    );
+  }
+}
+```
+
+
+```js
+class Person extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    const { lastName, firstName, city } = nextProps;
+    const {
+      lastName: currLastName,
+      firstName: currFirstName,
+      city: currCity
+    } = this.props;
+
+    return !(
+      lastName === currLastName &&
+      firstName === currFirstName &&
+      city === currCity
+    );
+  }
+
+  render() {
+    console.info("RENDER");
+    const { lastName, firstName, city } = this.props;
+    return (
+      <ul>
+        <li>{lastName}</li>
+        <li>{firstName}</li>
+        <li>{city}</li>
+      </ul>
+    );
+  }
+}
+```
+
+
+```js
+
+class Person extends React.PureComponent {
  
+  render() {
+    console.info("RENDER");
+    const { lastName, firstName, city } = this.props;
+    return (
+      <ul>
+        <li>{lastName}</li>
+        <li>{firstName}</li>
+        <li>{city}</li>
+      </ul>
+    );
+  }
+}
+
+```
+
+
+</CodeSurfer>
+
 ---
 
-## Render Props
+
+## Optimizing stateless component
+
+- React.memo
+
+- function component renders the same result given the same props
+
+- React will skip rendering the component, and reuse the <u>last rendered result</u>.
+
+
+[memo](https://codesandbox.io/s/memo-vqbn2)
+
+---
+
+<Notes>
+
+   - Be carreful passing no value, means null. 
+   - Default is only used when no Provider is available in the tree
+
+</Notes>
+ 
+
+## Context 
+
+    Context provides a way to pass data
+    through the component tree without 
+    having to pass props down manually 
+    at every level.
+ 
+ 
+[context](https://codesandbox.io/s/react-trainingreact-training-context-opt-qblft)
+ 
+
 
 ---
 
 ## Hooks 
 
-reuse stateful logic between components
-React components have always been closer to functions. Promote functional programming
+- React is functional at its 💙  
+- functional component can now be stateful thanks to the hooks
+
+ <Appear>
+ 
+    <li>Reuse stateful logic between components</li>
+    <li>React components have always been closer to functions.</li>
+    <li>Promotes functional programming</li>
+
+  </Appear> 
 
 ---
 
-rules of the hooks : 
-mettre une image de grimlins 
+import grimlins from './assets/grimlins.jpeg'
 
-Only call Hooks at the top level. Don’t call Hooks inside loops, conditions, or nested functions.
-Only call Hooks from React function components. Don’t call Hooks from regular JavaScript functions. (There is just one other valid place to call Hooks — your own custom Hooks. We’ll learn about them in a moment.)
+## Rules of the hooks 
 
-React assumes that if you call useState many times, you do it in the same order during every render. We’ll come back to why this works and when this is useful later.
+<img src={grimlins}/>
 
-function’s name starts with ”use” and it calls other Hooks, we say it is a custom Hook
+The magic come with a price
+
+---
+
+## Rules of the hooks
+
+
+<Appear>
+
+- Only call Hooks at the top level
+
+
+- Only call Hooks from React function components
+
+
+- Hooks must be called in the same order
+
+
+- Hooks start with use
+
+
+</Appear> 
+
+
+
+<Notes>
+
+- Don’t call Hooks inside loops, conditions, or nested functions.
+
+- Don’t call Hooks from regular JavaScript functions. (There is just one other valid place to call Hooks — your own custom Hooks. We’ll learn about them in a moment.)
+
+- React assumes that if you call useState many times, you do it in the same order during every render. We’ll come back to why this works and when this is useful later.
+
+- function’s name starts with ”use” and it calls other Hooks, we say it is a custom Hook
+
+</Notes>
+
 
 ---
 
 ## useState
 
+<CodeSurfer>
+
+```js 
+
+const [state, setState] = useState(initialState);
+
+```
+
+```js 
+
+const [state, setState] = useState(() => fibbonacci(50)));
+
+```
+
+```js 
+
+const [counter, setCounter] = useState(0);
+setState(previousCounter => previousCounter++)
+setState(counter++)
+
+```
+
+</CodeSurfer>
+
+[Exemple](https://codesandbox.io/s/charming-mountain-mf84w)
+
+<Notes>
+
+- no merge by default
+- expensive init fn 
+- if state is called with the same value , nothing would change
+
+</Notes>
+
 ---
 
 ## useReducer
+
+<Appear>
+    <div>ability to manipulate more complex state</div>
+    <div>based on the Redux design pattern</div>
+</Appear>
+
+---
+
+<CodeSurfer>
+
+```js
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+
+```
+
+```diff  15
+```
+
+```diff  15[40:47] subtitle="reducer function"
+```
+
+```diff  3 subtitle="(currentState,action) => newState"
+```
+
+
+```diff  15[17:24],19[24:58] 
+```
+
+```diff  5,6
+```
+
+
+</CodeSurfer>
 
 ---
 
 ## useEffect
 
+When should you use it?
+ 
+ <Notes>
+    Mutations, subscriptions, timers, logging, and other side effects 
+    setTimeout
+</Notes>
+
+
+---
+
+<CodeSurfer>
+
+```js
+
+const Clock = () => {
+    const now = () => new Date().toLocaleTimeString()
+    const [currentTime, setTime] = useState(now())
+    useEffect(() => {
+        const handle = setInterval(() => {
+            setTime(now())
+        }, 700)
+        return () => clearInterval(handle)
+    }, [])
+
+    return (<pre>It is {currentTime}</pre>)
+
+}
+ 
+```
+
+</CodeSurfer>
+
 ---
 
 ## useContext
+
+https://codesandbox.io/s/react-trainingreact-training-context-opt-qblft
+
+---
+
+## Forms
+
+Uncontrolled field 
+
+https://codesandbox.io/s/form-uncontrolled-0rbz9
+
+Controlled field 
+
+https://codesandbox.io/s/form-controlled-kr0lz
+
+ 
+---
+
+## Render Props
+
+
+https://codesandbox.io/s/render-function-hj7t6
 
 ---
 
@@ -724,7 +1194,8 @@ function’s name starts with ”use” and it calls other Hooks, we say it is a
 
 - simple props : callback / value 
 - context 
-- managed props
+- managed props: subscription
+- composition
 
 ---
 
@@ -747,6 +1218,10 @@ https://codesandbox.io/s/react-training-component-update-with-fn-c8tzm
 Show the react profiler
 
 explain how to setup
+
+Temporarily disable all Chrome extensions, especially React DevTools. They can significantly skew the results!
+
+Not everyone has a $3000 computer: Slow down your CPU
 
 ---
 
@@ -804,7 +1279,7 @@ function withLoader(WrappedComponent) {
           {!loading && <WrappedComponent {...others} />}
           {loading && <span>Loading ...</span>}
         </>
-      );
+      )
     }
   }
 
@@ -820,7 +1295,6 @@ function withLoader(WrappedComponent) {
 
 
 ⚠ Many pitfall: static, refs , displayName
-[recompose ❤](https://github.com/acdlite/recompose)
 
 ---
 
@@ -838,11 +1312,6 @@ https://codesandbox.io/s/4w7l73xj59
 
 ---
  
- Context usage: 
- https://codesandbox.io/s/react-trainingreact-training-context-opt-qblft
- 
----
-
 <Image
   src='https://source.unsplash.com/random/768x2048?brooklyn'
   style={{
@@ -976,6 +1445,14 @@ exercice : Create a redux like pattern using hooks
 
 docs:  
 [codesurfer.pomb.us](https://codesurfer.pomb.us) 
+
+
+---
+
+
+Github repo [react-training](https://github.com/hbourzeix/react-training)
+
+### Issues and PRs are welcomed ❤
 
 
 
