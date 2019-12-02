@@ -10,7 +10,6 @@ import { github, vsDark } from "@code-surfer/themes";
 
 import "prismjs/components/prism-php"
 
-
 import HelloWorld from './snippets/HelloWorld'
  
 export const theme = github;
@@ -1190,26 +1189,33 @@ https://codesandbox.io/s/render-function-hj7t6
 ---
 
 
-## How to plumb component together ? 
+## How to plumb components all together ? 
+
+<Appear>
 
 - simple props : callback / value 
+
+
 - context 
+
+
 - managed props: subscription
+
+
 - composition
 
+
+</Appear>
+
 ---
 
-React is dumb at performance 
-
----
-
-Optimize Class
+Optimize class component
 
 https://codesandbox.io/s/react-training-component-update-with-class-orsdh 
 
 ---
 
-Optimize with fn
+Optimize with functional component
 
 https://codesandbox.io/s/react-training-component-update-with-fn-c8tzm
 
@@ -1217,7 +1223,7 @@ https://codesandbox.io/s/react-training-component-update-with-fn-c8tzm
 
 Show the react profiler
 
-explain how to setup
+explain how to setup if not using create-react-app
 
 Temporarily disable all Chrome extensions, especially React DevTools. They can significantly skew the results!
 
@@ -1226,7 +1232,6 @@ Not everyone has a $3000 computer: Slow down your CPU
 ---
 
 ## Render function 
-
 
 A property user function called from the render function with it's own API
 
@@ -1262,8 +1267,8 @@ An API with methods to ease rendering
 ---
 
 ## HoC
-Hight Order Component
 
+HoC: High Order Component
 
 ---
 
@@ -1294,12 +1299,13 @@ function withLoader(WrappedComponent) {
 ## HoC
 
 
-⚠ Many pitfall: static, refs , displayName
+⚠ Many pitfall: static, refs, displayName ...
+
 
 ---
 
 
-Server Rendering
+## Server Rendering
 
    
     ReactDOMServer.renderToString(element)
@@ -1331,7 +1337,24 @@ Redux
 # What is Redux?
 
 
-Redux is a predictable state container for JavaScript applications. It helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test.
+Definiton: 
+
+<Appear>
+
+- Redux is a predictable state container for JavaScript applications. 
+
+
+- It helps you write applications that behave consistently, run in different environments (client, server, and native),
+
+ 
+- Easy to test.
+
+
+- Not tight to any library like React
+
+
+</Appear>
+
 
 
 ---
@@ -1343,40 +1366,266 @@ import reduxFlow from './assets/redux-flow.png'
 
 ---
 
-Actions
-Reducers 
-Store
+## Redux Actions
+
+
+
+<CodeSurfer>
+
+```js subtitle="Actions trigger events!"
+export const USER_PREFERENCE_CHANGE = "USER_PREFERENCE_CHANGE";
+
+export const changeUserPreference = (userPreference) => ({
+  type: USER_PREFERENCE_CHANGE
+  userPreference
+});
+
+```
+
+```diff 1 subtitle="action declaration (Events)"
+```
+
+```diff 3 subtitle="action creator"
+```
+
+```diff 4 subtitle="action has a type by convention"
+```
+
+
+</CodeSurfer>  
+
+
+### 
 
 ---
 
+## Redux Reducers 
+
+
+<CodeSurfer>
+
+```js 
+    (state,action) => newState // a reducer MUST be a pure function
+```
+
+```js 
+    const reducer = (state = {currency:"EUR",lang: "fr"} ,action) => {
+        switch(action.type) {
+            case USER_PREFERENCE_CHANGE: {
+                return {...state,userPreference: action.userPreference}            
+            }
+        
+            default: 
+                return state   
+        }
+    }
+```
+
+```diff 1,7,8 subtitle="default state will be used as initial state" 
+```
+
+```diff 1,7,8 subtitle="Redux always dispatch an INIT event" 
+```
+
+```diff 4 subtitle="state must be immutable" 
+```
+
+
+</CodeSurfer>  
+
+
+---
+
+## Store
+
+
+<CodeSurfer >
+
+```js subtitle="Promotes a global application state"
+const store = createStore(reducer, applyMiddleware([m1,m2]));
+```
+
+```js subtitle="you may subscribe to the store"
+const store = createStore(reducer, applyMiddleware([m1,m2]));
+store.subscribe(() => {})
+```
+
+```diff 1 subtitle="you may apply middleware"
+```
+
+
+</CodeSurfer>  
+
+---
+
+# Hints 
+
+<CodeSurfer>
+
+```js
 Do Not Mutate State
+```
+
+```js
 Reducers Must Not Have Side Effects
+```
+
+```js
 Do Not Put Non-Serializable Values in State or Actions
+```
+
+```js
 Only One Redux Store Per App
+```
+
+```js
 Prefer use of feature folders
+```
+
+```js
 Reducers Should Own the State Shape
+```
+
+```js
 Model Actions as "Events", Not "Setters"
+```
+
+```js
 Write Meaningful Action Names
+```
+
+```js
 Use Selector Functions to Read from Store State
+```
+
+```js
 Avoid Putting Form State In Redux
+```
+
+
+</CodeSurfer>
 
 ---
-## Connect 
-- mapDispatchToProps
-- mapStateToProps
 
+## Redux Connect 
+
+<CodeSurfer>
+
+```js
+const DeliveryInfo = ({
+    firstName,
+    lastName,
+    address,
+    preferredMode,
+    onEdit 
+}) => {/* render */}
+```
+
+```js subtitle="Container component are created using -connect-"
+const ConnectedDeliveryInfo = connect(
+    mapDispatchToProps,
+    mapStateToProps
+)(DeliveryInfo) 
+```
+
+```diff subtitle="Connect creates an HoC"
+``` 
+
+```js
+const mapStateToProps = (state) => ({
+    firstName : state.user.firstName,
+    lastName : state.user.lastName,
+    address : state.user.address,
+    preferredMode :  state.userPreference.preferredMode
+})
+```
+
+```js
+const mapDispatchToProps = (dispatch) => ({
+    onEdit : value => dispatch(changeUserPreference(value))
+})
+```
+
+
+```js 1 subtitle="Connect behind the scene"
+Connect does a subscribe to the store
+Executes mapStateToProps
+Executes mapDispatchToProps
+If ≠ than previous, Component is rendered.
+```
+
+```diff 2
+```
+
+```diff 3
+```
+
+```diff 4
+```
+
+
+</CodeSurfer>
+
+<Notes> 
 If a mapStateToProps function is specified, the new wrapper component will subscribe to Redux store updates. This means that any time the store is updated, mapStateToProps will be called
 
 If your mapStateToProps function is declared as taking two parameters, it will be called whenever the store state changes or when the wrapper component receives new props (based on shallow equality comparisons)
 
----
-
-### Selector 
-`Reselect` memoization library 
- 
- exemple de memo avec 2 executions avec du live coding
+</Notes>
 
 ---
+
+    mapStateToProps
+    
+<Appear>    
+    <div>Functions Should Be Fast</div>    
+    <div>Functions Should Be Pure and Synchronous</div>     
+    <div> Return Values Determine If Your Component Re-Renders </div>
+    <div> mapStateToProps Will Not Run if the Store State is the Same </div>
+    <div> Cool : combineReducers optimize the output state for US </div>
+</Appear>
+    
+
+---
+
+## Selector
+
+<CodeSurfer>
+
+```js subtitle="starts with getXXXX"
+const getFirstName = (state) => 
+    state.userInfo.firstName
+
+const getPreferredDeliveryMode = (state) => 
+    state.userPreference.deliveryMode
+```
+
+</CodeSurfer>
+
+
+---
+
+
+## Selector using Reselect
+
+<CodeSurfer>
+
+```js subtitle="starts with getXXXX"
+
+const getUserInfo = state => state.userInfo
+
+const getFirstName = createSelector([getUserInfo], userInfo => userInfo.firstName)
+
+```
+
+```diff subtitle="memoize the latest result based on the input parameter"
+```
+
+</CodeSurfer>
+
+
+---
+
 
 ## Manage a single state 
 
@@ -1406,18 +1655,7 @@ It is called every time the store state changes.
 It receives the entire store state, and should return an object of data this component needs.
 
 ---
-    mapStateToProps
-    
-<Appear>    
-    <div>Functions Should Be Fast</div>    
-    <div>Functions Should Be Pure and Synchronous</div>     
-    <div> Return Values Determine If Your Component Re-Renders </div>
-    <div> mapStateToProps Will Not Run if the Store State is the Same </div>
-    <div> Cool : combineReducers optimize the output state for US </div>
-</Appear>
-    
 
----
 
     Middleware
 
@@ -1438,23 +1676,181 @@ If we were to add more UI components to our little counter application, each one
 
 ---
 
-exercice : Create a redux like pattern using hooks
-
----
-
-
-docs:  
-[codesurfer.pomb.us](https://codesurfer.pomb.us) 
-
-
----
-
-
 Github repo [react-training](https://github.com/hbourzeix/react-training)
 
 ### Issues and PRs are welcomed ❤
 
 
+---
 
+🍻 BEER TENDER 🍻
+
+Let's code!     
+
+---
+
+- create react-workshop folder
+- check your NodeJs installation (>= 10.x)
+- npm init -y  
+- npm install --save-dev webpack webpack-cli html-webpack-plugin webpack-dev-server 
+
+---
+
+<CodeSurfer>
+
+```js subtitle="create a webpack.config.js file "
+
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+  const path = require('path');
+  module.exports = {
+    entry: './index.js',
+    output: {
+      path: path.resolve(__dirname, './dist'),
+      filename: 'index_bundle.js'
+    },
+    plugins: [new HtmlWebpackPlugin()]
+  };
+```
+
+</CodeSurfer>
+
+---
+
+
+<CodeSurfer>
+
+```js subtitle="create an src/index.js "
+
+console.info('Hello World')
+
+```
+
+</CodeSurfer>
+
+
+---
+
+
+<CodeSurfer>
+
+```js subtitle="edit your package.json file"
+
+ 
+  {
+    "scripts": {     
+      "build": "webpack --mode development"
+    },
+  }
+
+
+```
+
+
+```diff subtitle="npm run build"
+```
+
+</CodeSurfer>
+
+---
+
+## Babel
+
+npm install --save-dev @babel/core @babel/cli  babel-loader @babel/preset-env
+
+---
+
+## Babel
+
+
+
+
+<CodeSurfer>
+
+```js subtitle="Add a .babelrc file"
+  module: {
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+    ]
+  }
+```
+
+</CodeSurfer>
+
+
+
+---
+
+## React
+
+npm install --save-dev react react-dom
+
+
+---
+
+
+<CodeSurfer>
+
+```js subtitle="edit your package.json file"
+
+ 
+  {
+    "scripts": {     
+      "build" : "webpack --mode development",
+      "start" : "webpack-dev-server"
+    },
+  }
+
+
+```
+
+
+```diff subtitle="npm start"
+```
+
+</CodeSurfer>
+
+---
+
+
+<CodeSurfer>
+
+```js subtitle="Edit the src/index.js "
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+function App() {
+  return (
+    <div>
+      <h1>Hello</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+
+const rootElement = document.createElement('div');
+document.body.appendChild(rootElement)
+ReactDOM.render(<App />, rootElement);
+
+```
+
+</CodeSurfer>
+
+[Source](https://raw.githubusercontent.com/hbourzeix/react-training/workshop/react-workshop/v0-beertender-setup/src/index.js)
+
+
+---
+
+## Checkout 
+
+---
+
+## Create a React stateless component 
+
+Display a beer description using the static JSON file
+
+
+---
 
 
