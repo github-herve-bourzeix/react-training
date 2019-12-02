@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 const Description = styled.div`
- display: flex;
+  display: flex;
   align-items: flex-start;
 `
 
@@ -13,8 +13,6 @@ margin-right: 1em;
 const Body = styled.div`
   flex:1;
 `
-
-
 
 // how would we display the image on the right ?
 export const BeerDescription = ({ name, url, description }) => (
