@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { connect } from 'react-redux'
 
 const Description = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const Body = styled.div`
 export const BeerDescription = ({ name, url, description }) => (
   <Description>
     <Figure>
-        <img height="200px" src={url} alt={name}/>
+      <img height="200px" src={url} alt={name}/>
     </Figure>
     <Body>
       <h3>{name}</h3>
@@ -27,3 +28,9 @@ export const BeerDescription = ({ name, url, description }) => (
   </Description>
 )
 
+const mapStateToProps = (state) => ({
+  name: state.currentBeer.name,
+  url: state.currentBeer.url,
+  description: state.currentBeer.description,
+})
+export const ConnectedBeerDescription = connect(mapStateToProps)(BeerDescription)

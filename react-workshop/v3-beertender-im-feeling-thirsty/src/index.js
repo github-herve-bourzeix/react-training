@@ -9,21 +9,31 @@ import {
   MainContent
 } from './Layout'
 import { GlobalStyle } from './theme'
-import { BeerDescription } from './components/BeerDescription'
+import { BeerDescription, ConnectedBeerDescription } from './components/BeerDescription'
+import FeelingThirstyButton from './components/FeelingThirstyButton'
+
+import thunk from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import randomBeerReducers from './randomBeerReducer'
 
 const jsonDesc = require('./beerDescription.json')
 
+const store = createStore(randomBeerReducers, applyMiddleware(thunk))
+
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <GlobalStyle/>
       <GridContainer>
         <MainContent>
           <Suggestions>
-            <h2>Left side</h2>
+            <FeelingThirstyButton/>
           </Suggestions>
           <Content>
-            <BeerDescription name={jsonDesc.name} description={`${jsonDesc.description} ${jsonDesc.brewers_tips}`} url={jsonDesc.image_url}/>
+            <BeerDescription name={jsonDesc.name} description={`${jsonDesc.description} ${jsonDesc.brewers_tips}`}
+                             url={jsonDesc.image_url}/>
+            <ConnectedBeerDescription/>
           </Content>
         </MainContent>
         <Header>
@@ -33,7 +43,7 @@ function App() {
           <h3>this is why we don't let dev choose colors</h3>
         </Footer>
       </GridContainer>
-    </>
+    </Provider>
   )
 }
 
