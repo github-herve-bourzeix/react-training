@@ -3,9 +3,9 @@
 
 ```
 cd deck-training
-npm i && npm start
+npm ci && npm start
 
-visit: http://localhost:8080
+visit: http://localhost:8000
 
 enjoy!
 ```
