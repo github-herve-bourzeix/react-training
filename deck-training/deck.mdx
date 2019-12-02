@@ -33,7 +33,7 @@ export const theme = github;
 ---
 
 
-## 👨👷🏋 
+## 👩‍⚕👨👷🏋 
 ## Who are you ❓ 
 
 
@@ -44,9 +44,9 @@ export const theme = github;
 
 ---
 
-## What is your level ? 
+## What is your JavaScript level ? 
 
-
+http://davidshariff.com/js-quiz
 
 ---
  
@@ -86,7 +86,6 @@ optimizations
 ```js title="⚒️ Workshop"
 🍻 LET'S CODE SOMETHING 🍻  
 
-// TODO URL to codesandbox
         
 ```
 
@@ -128,7 +127,7 @@ https://babeljs.io/repl
 
 var never_use_me_again = "ever"
 
-let i_can_be_mutated = "bad smell but few use cases"
+let i_can_be_mutated = "bad smell but few legit use cases"
 
 const most_used = "my ref can't be mutated"
 
@@ -232,7 +231,7 @@ const {
     
     const foo2 = () => { return 1337}
     
-    const foo3 = ({} = {p}) => ({p})
+    const foo3 = (x = {x:1}) => x
 
 ```
 
@@ -246,12 +245,15 @@ const {
 
     const firstName = "Pierre"
     const lastName = "Chappaz"
+
     const user = {
         firstName : firstName,
-        lastName:lastName
+        lastName : lastName
     }
+
     // shortcut as 
-    const user = {firstName,lastName}
+    const user = {firstName, lastName}
+    
 ```    
 
 </CodeSurfer>
@@ -260,12 +262,14 @@ const {
 
 <CodeSurfer> 
 
-```js title="Properties: alias"
+```js title="Properties: aliases"
         
 const {
-    x : firstName,
-    y: lastName
+    firstName : prenom,
+    lastName : nom
 } = user
+
+console.info(prenom,nom)
 
 ```    
 
@@ -296,6 +300,7 @@ const user = {
         
 // constants.js
 export const MY_CONSTANT = 1 
+
 // main.js
 import {MY_CONSTANT} from './constants'
 
@@ -310,7 +315,8 @@ import {MY_CONSTANT} from './constants'
 ```js title="ES2015 import / export"
         
 // identity.js
-export default (x) => x
+export default x => x
+
 // main.js
 import identity from './identity'
 
@@ -325,13 +331,16 @@ import identity from './identity'
 ```js title="ES2015 import / export"
         
 // identity.js
-const identity  = (x) => x
-export {identity}
+const identity  = x => x
+
+export {identity,identity as default}
+
 // main.js
 import {identity} from './identity'
-// identity(1)
 import {identity as id} from './identity'
-// id(1)
+
+identity(1) 
+id(1)
 
 ```    
 
@@ -373,9 +382,11 @@ const user = [...a1,...a2]
 
 ```js title="Spread operator in fn"
         
-// no more "arguments" with fat arrows
+// ⚠️ No more "arguments" with fat arrows
 const takeFirstArg = (first,...others) => first
-const takeFirst = ([first,...others]) => first 
+
+const takeFirst = ([first,...others]) => first
+ 
 const omitLastName = ({lastName,...anyOtherProps}) => ({...anyOtherProps})
 
 ```    
@@ -384,7 +395,7 @@ const omitLastName = ({lastName,...anyOtherProps}) => ({...anyOtherProps})
 
 ---
 
-## ES6 Template  
+## String Template  
 
 <CodeSurfer> 
 
@@ -392,7 +403,9 @@ const omitLastName = ({lastName,...anyOtherProps}) => ({...anyOtherProps})
         
 const a = "hello"
 const myTemplate = `${1+2} ${a}`
+
 String.raw`${1+2} ${a}`
+
 const log = (...args) => console.info(...args) 
 log`${1+2} ${a}`
 
@@ -482,7 +495,7 @@ import test2 from './assets/table.png'
 
 ---
 
-## Virtual DOM
+## 👻 Virtual DOM
 
 <Appear>
     <div>
@@ -499,10 +512,10 @@ import virtual_dom_diff from './assets/virtual_dom_diff.jpg'
 ---
 
 
-## Virtual DOM 
+## 👻 Virtual DOM 
 
-React fiber: 
-https://claudiopro.github.io/react-fiber-vs-stack-demo/
+
+[demo](https://claudiopro.github.io/react-fiber-vs-stack-demo/)
     
 ---
 
@@ -510,13 +523,13 @@ https://claudiopro.github.io/react-fiber-vs-stack-demo/
 
 <CodeSurfer>
 
-```javascript 
-<Content name="myContent" activated>
-    <Children/>
+```jsx 
+<Container name="myContent" activated>
+    <Content/>
 </Content>
 ```
 
-```diff 1,3  subtitle="declare a component️"
+```diff 1,3  subtitle="Use a component️"
 ```
 
 ```diff 1[10:26] subtitle="a property"
@@ -536,15 +549,15 @@ https://claudiopro.github.io/react-fiber-vs-stack-demo/
 
 JSX event are camel case: onClick vs onclick 
 
-React mutualise event listener
+React mutualises event listener
 
-You should not call addEventListener
+You should not call addEventListener / removeEventListener
 
 ---
 
 <CodeSurfer>
 
-```js title="JSX in detail" 
+```jsx title="JSX in detail" 
     <MyComponent 
         name="users" 
         data={[1,2,3]} 
@@ -562,10 +575,10 @@ You should not call addEventListener
 ```diff 3  subtitle="attributes can be any valid javascript type when between braces"
 ```
 
-```diff 4  subtitle="attributes can be any valid javascript type when between braces"
+```diff 4  subtitle="orphan attributes are given a true boolean value"
 ```
 
-```diff 5  subtitle="lower case component are interpreted as internal html5 tag binding"
+```diff 5  subtitle="lower case component are interpreted as existing HTML tags"
 ```
 
 
@@ -577,7 +590,7 @@ You should not call addEventListener
 
 <CodeSurfer>
 
-```js title="JSX" 
+```jsx title="JSX" 
 <MyComponent 
     style={{width:"100px"}}>
         <h1>💪</h1>
@@ -626,7 +639,7 @@ You should not call addEventListener
 
 <Step>
 
-```js title="JSX" 
+```jsx title="JSX" 
 <MyComponent name="users" active>
     <h1>💪</h1>
 </MyComponent>
@@ -667,7 +680,7 @@ React.createElement(MyComponent, {
 </CodeSurferColumns>
 
 
---- 
+---
 
 
 <Appear>
@@ -852,13 +865,33 @@ React optimize the rendering
 
 ---
 
+<CodeSurfer>
+
+```jsx subtitle="optimize DOM mutation using key"
+
+const List = ({ items }) => (
+  <ul>
+    {items.map(({ id, name }) => (
+      <Item key={id} name={name} />
+    ))}
+  </ul>
+)
+```
+
+```diff 5[13:20]
+```
+
+</CodeSurfer>
+
+---
+
 
 ## Optimizing stateful component
 
 
 <CodeSurfer> 
 
-```js subtitle="https://codesandbox.io/s/shouldcomponentupdate-48bfy"
+```jsx
 
 class Person extends React.Component {
   render() {
@@ -874,7 +907,6 @@ class Person extends React.Component {
   }
 }
 ```
-
 
 ```js
 class Person extends React.Component {
@@ -927,8 +959,9 @@ class Person extends React.PureComponent {
 
 ```
 
-
 </CodeSurfer>
+
+[source](https://codesandbox.io/s/shouldcomponentupdate-48bfy)
 
 ---
 
@@ -1129,12 +1162,24 @@ function Counter() {
 ## useEffect
 
 When should you use it?
- 
- <Notes>
-    Mutations, subscriptions, timers, logging, and other side effects 
-    setTimeout
-</Notes>
 
+<Appear>
+
+- component mutations
+
+
+- subscriptions
+
+
+- fetch / xhr 
+
+
+- setTimeout / setInterval / requestAnimationFrame
+
+
+
+</Appear>
+ 
 
 ---
 
@@ -1158,33 +1203,44 @@ const Clock = () => {
  
 ```
 
+```diff 9 subtitle="returns a function to clean"
+```
+
+
 </CodeSurfer>
 
 ---
 
 ## useContext
 
-https://codesandbox.io/s/react-trainingreact-training-context-opt-qblft
+Ability to consume a given context
+
+ [Example](https://codesandbox.io/s/react-trainingreact-training-context-opt-qblft)
 
 ---
 
 ## Forms
 
-Uncontrolled field 
+Two ways to manipulate forms: uncontrolled and controlled
 
-https://codesandbox.io/s/form-uncontrolled-0rbz9
+[Uncontrolled field example](https://codesandbox.io/s/form-uncontrolled-0rbz9)
 
-Controlled field 
-
-https://codesandbox.io/s/form-controlled-kr0lz
-
+[Controlled field example](https://codesandbox.io/s/form-controlled-kr0lz) 
  
 ---
 
 ## Render Props
 
+Useful to compose Components.
 
-https://codesandbox.io/s/render-function-hj7t6
+A property user function called from the render function with it's own API
+
+An API that abstract the data structure.
+
+An API with methods to ease rendering
+
+
+[Render props example](https://codesandbox.io/s/render-function-hj7t6)
 
 ---
 
@@ -1209,21 +1265,23 @@ https://codesandbox.io/s/render-function-hj7t6
 
 ---
 
-Optimize class component
+## Optimize a class component
 
-https://codesandbox.io/s/react-training-component-update-with-class-orsdh 
-
----
-
-Optimize with functional component
-
-https://codesandbox.io/s/react-training-component-update-with-fn-c8tzm
+[class component example](https://codesandbox.io/s/react-training-component-update-with-class-orsdh) 
 
 ---
 
-Show the react profiler
+## Optimize a functional component
 
-explain how to setup if not using create-react-app
+[functional component example](https://codesandbox.io/s/react-training-component-update-with-fn-c8tzm)
+
+---
+
+## Optimize a React App
+
+React Profiler 
+
+Setup if not using create-react-app
 
 Temporarily disable all Chrome extensions, especially React DevTools. They can significantly skew the results!
 
@@ -1231,46 +1289,7 @@ Not everyone has a $3000 computer: Slow down your CPU
 
 ---
 
-## Render function 
-
-A property user function called from the render function with it's own API
-
-An API that abstract the data structure.
-
-An API with methods to ease rendering
-
----
-
-<CodeSurfer>
-
-```js
- const NotificationPanel = ({notifications = [],renderNotification}) =>  
- (
-     <div>
-         <section>
-             # of notifications: {notifications.length}                
-         </section>
-         <section>
-            {
-                notifications.map((notification,index) => renderNotification(notification))
-            }
-         </section>
-         <section>
-            /* tool bar */                                    
-         </section>            
-     </div>   
- )   
-``` 
-
-</CodeSurfer>
-
----
-
-## HoC
-
-HoC: High Order Component
-
----
+## HoC: High Order Component
 
 <CodeSurfer title="HoC">
 
@@ -1307,14 +1326,18 @@ function withLoader(WrappedComponent) {
 
 ## Server Rendering
 
-   
-    ReactDOMServer.renderToString(element)
-    ReactDOMServer.renderToStaticMarkup(element)
-    
-    ReactDOM.hydrate()
+<CodeSurfer>
 
-https://codesandbox.io/s/4w7l73xj59
+```js   
+ReactDOMServer.renderToString(element)
 
+ReactDOMServer.renderToStaticMarkup(element)
+
+ReactDOM.hydrate()
+```
+</CodeSurfer>
+
+[SSR exmample](https://codesandbox.io/s/4w7l73xj59)
 
 ---
  
@@ -1328,13 +1351,13 @@ https://codesandbox.io/s/4w7l73xj59
     backgroundColor: 'black',
   }}>
   
-Redux
+<h1>🍲Redux</h1>
   
   </Image>
 
 ---
 
-# What is Redux?
+# 🍲 What is Redux?
 
 
 Definiton: 
@@ -1372,23 +1395,22 @@ import reduxFlow from './assets/redux-flow.png'
 
 <CodeSurfer>
 
-```js subtitle="Actions trigger events!"
+```js 4,5,6,7 subtitle="actions are simple object with a type property"
 export const USER_PREFERENCE_CHANGE = "USER_PREFERENCE_CHANGE";
 
-export const changeUserPreference = (userPreference) => ({
-  type: USER_PREFERENCE_CHANGE
-  userPreference
-});
+export const changeUserPreference = (userPreference) => (
+    {
+      type: USER_PREFERENCE_CHANGE,
+      userPreference
+    }
+);
 
 ```
 
-```diff 1 subtitle="action declaration (Events)"
+```diff 1 subtitle="action type declaration"
 ```
 
-```diff 3 subtitle="action creator"
-```
-
-```diff 4 subtitle="action has a type by convention"
+```diff 3 subtitle="an action creator function"
 ```
 
 
@@ -1399,14 +1421,21 @@ export const changeUserPreference = (userPreference) => ({
 
 ---
 
-## Redux Reducers 
-
+## Redux reducer 
 
 <CodeSurfer>
 
 ```js 
-    (state,action) => newState // a reducer MUST be a pure function
+    (state,action) => newState 
 ```
+
+</CodeSurfer>
+
+---
+
+## Redux reducer
+
+<CodeSurfer>
 
 ```js 
     const reducer = (state = {currency:"EUR",lang: "fr"} ,action) => {
@@ -1421,7 +1450,7 @@ export const changeUserPreference = (userPreference) => ({
     }
 ```
 
-```diff 1,7,8 subtitle="default state will be used as initial state" 
+```diff 1,7,8 subtitle="default value will be used as the initial state" 
 ```
 
 ```diff 1,7,8 subtitle="Redux always dispatch an INIT event" 
@@ -1552,6 +1581,7 @@ Connect does a subscribe to the store
 Executes mapStateToProps
 Executes mapDispatchToProps
 If ≠ than previous, Component is rendered.
+By default, connect uses a shallow equals
 ```
 
 ```diff 2
@@ -1561,6 +1591,9 @@ If ≠ than previous, Component is rendered.
 ```
 
 ```diff 4
+```
+
+```diff 5
 ```
 
 
@@ -1633,46 +1666,64 @@ use `combineReducers`
 
 ---
 
-https://www.simplethread.com/cant-replace-redux-with-hooks/
-https://blog.logrocket.com/why-use-redux-reasons-with-clear-examples-d21bffd5835/
+[cant-replace-redux-with-hooks](https://www.simplethread.com/cant-replace-redux-with-hooks/)
+[why-use-redux](https://blog.logrocket.com/why-use-redux-reasons-with-clear-examples-d21bffd5835/)
 
 ---
 
-Redux Dev Tools 
-https://github.com/zalmoxisus/redux-devtools-extension
-
----
-
-React Redux then optimizes component rendering and makes sure that each component re-renders only when the data it needs change. Context, on the other hand, does not hold any state. It is only a conduit for the data. To express changes in data you need to rely on the state of a parent component.
+ 
+[Redux Dev Tools](https://github.com/zalmoxisus/redux-devtools-extension)
 
 
 ---
-
-Connect: Extracting Data with mapStateToProps
-As the first argument passed in to connect, mapStateToProps is used for selecting the part of the data from the store that the connected component needs. It’s frequently referred to as just mapState for short.
-
-It is called every time the store state changes.
-It receives the entire store state, and should return an object of data this component needs.
-
----
-
-
-    Middleware
+## Middlewares
 
     redux-thunk 
+    
     redux-saga
+    
+    redux-observable
 
 ---
 
+## Redux Thunk 
 
-The useReducer React hook provides a Redux-like means of managing state transitions, but it’s no replacement for Redux when it comes to managing a global application state tree. It’s super useful at a lower level in the component hierarchy for handling pieces of state that are dependent on one another, instead of declaring a bunch of useState hooks
+A thunk is a function that wraps an expression to delay its evaluation.
 
+[14 lines of code](https://github.com/reduxjs/redux-thunk/blob/master/src/index.js)
 
----
+--- 
 
-Redux container components prevent these re-renders via their mapStateToProps function, which transforms relevant global state values into props and passes them down to the UI.
+<CodeSurfer>
 
-If we were to add more UI components to our little counter application, each one that consumes our context will re-render whenever any part of the global state changes, whether it needs to or not. In an application with a lot of UI components consuming global state, this is a recipe for intractable performance problems.
+```js subtitle="regular action creator"
+
+export const changeUserPreference = (userPreference) => (
+    {
+      type: USER_PREFERENCE_CHANGE,
+      userPreference
+    }
+);
+
+```
+
+```js subtitle="async action creator"
+
+export const saveUserPreference = (userPreference) => (dispatch, getState) =>  (
+    dispatch({
+      type: REQUEST_SAVE_USER_PREFERENCE      
+    })
+    
+    api.saveUserPreference(userPreference).then(() => {
+        dispatch({
+          type: RESPONSE_SAVE_USER_PREFERENCE      
+        })
+    })
+);
+
+```
+
+</CodeSurfer>
 
 ---
 
@@ -1685,7 +1736,10 @@ Github repo [react-training](https://github.com/hbourzeix/react-training)
 
 🍻 BEER TENDER 🍻
 
-Let's code!     
+Let's code!   
+
+Aurélien Bénéfice @ Publishers  
+Hervé Bourzeix @ Publishers  
 
 ---
 
@@ -1844,13 +1898,40 @@ ReactDOM.render(<App />, rootElement);
 
 ## Checkout 
 
+git clone git@github.com:hbourzeix/react-training.git
+
 ---
 
 ## Create a React stateless component 
 
 Display a beer description using the static JSON file
+ 
+---
+
+## Setup Redux
+
+`I am feeling thirsty® button` 
+
+- Create a `I am feeling thirsty®` component in the header
+
+- creates the reducer 
+
+- setup the store using thunk middleware
+
+- Wrap the App with a Provider 
+
+- creates following actions: 
+    REQUEST_FEELING_THIRSTY
+    RESPONSE_FEELING_THIRSTY   
+
+- implements the reducer
+
+- create the connected BeerDescription
 
 
 ---
 
+Feedback? 
+
+---
 
