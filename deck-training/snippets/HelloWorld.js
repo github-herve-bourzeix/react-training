@@ -19,12 +19,7 @@ class HelloWorld extends Component {
 
     render() {
         return (
-            <div
-                ref={ref => {
-                    this.ref = ref;
-                }}
-            >
-                <h1>Hello, world!</h1>
+            <div>
                 <code>It is {this.state.now}</code>
             </div>
         );

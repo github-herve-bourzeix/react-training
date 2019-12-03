@@ -1,0 +1,1937 @@
+import { Head,Image,Appear,Notes } from 'mdx-deck'
+
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+
+import { github, vsDark } from "@code-surfer/themes";
+
+import "prismjs/components/prism-php"
+
+import HelloWorld from './snippets/HelloWorld'
+ 
+export const theme = github;
+
+<Head>
+  <title>React training for Users</title>
+</Head>
+
+
+---
+
+
+# <WebDev@Teads 💪/>
+
+## JavaScript / React / Redux 
+
+
+###### 💻 Hervé Bourzeix - December '19 
+
+
+---
+
+
+## 👩‍⚕👨👷🏋 
+## Who are you ❓ 
+
+
+---
+
+## 👨 
+## Who am I ❓ 
+
+---
+
+## What is your JavaScript level ? 
+
+http://davidshariff.com/js-quiz
+
+---
+ 
+## 🛫 Our journey 🛬
+
+<CodeSurfer >
+
+```js
+```
+
+```js title="🧰 JavaScript"
+the basics of the language
+the survival kit for React     
+```
+
+
+```js title="⚛ React"
+some useful background
+Component & lifecycle
+State and Context
+plumbing
+forms
+--> time for a break 🏝️
+Optimization
+Design patterns like HoC
+
+```
+
+```js title="🏪 Redux"
+taxonomy and rules 
+APIs
+ --> time for the lunch 🍖️
+good practices
+optimizations
+```
+
+```js title="⚒️ Workshop"
+🍻 LET'S CODE SOMETHING 🍻  
+
+        
+```
+
+
+</CodeSurfer>
+
+
+ 
+---
+
+    Ready?
+
+---
+
+
+Some reminders about ~~JavaScript~~ 
+
+EcmaScript 🚀
+
+https://github.com/tc39/proposals/blob/master/finished-proposals.md
+
+---
+
+##  Babel 
+   
+What is Babel? 
+
+the journey from 5to6 to Babel 7!
+
+https://astexplorer.net
+
+https://babeljs.io/repl
+
+---
+
+<CodeSurfer>
+
+```js
+
+var never_use_me_again = "ever"
+
+let i_can_be_mutated = "bad smell but few legit use cases"
+
+const most_used = "my ref can't be mutated"
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js
+   
+    true == "1"
+    true === "1"
+   
+    12 == "12"
+    12 === "12"
+    
+    [] == []
+    [] === []    
+   
+    {} == {}
+    {} === {}
+   
+   ```
+
+</CodeSurfer>
+
+---
+
+
+<CodeSurfer>
+
+```js
+
+    NaN === NaN        
+   
+```
+
+</CodeSurfer>
+
+---
+# No native deep equal , use lodash
+
+---
+
+<CodeSurfer>
+
+
+```js
+const user = {
+  firstName: "Pierre",
+  lastName: "Chappaz",
+  location: { city: "genève", countryCode: "ch" }
+};
+
+const {
+  firstName,
+  location: { countryCode },
+  gender = "male"
+} = user;
+```
+
+```diff 2,8 subtitle="firstName is equals to 'Pierre'" 
+```
+
+```diff 4,9[15:26] subtitle="countryCode is equals to 'ch'" 
+```
+
+```diff 10 subtitle="gender wasn't define and default to 'male'" 
+```
+
+
+
+</CodeSurfer>
+
+---
+<CodeSurfer>
+
+```js title="ES2015: Array destructuration"
+    const path='/myredirect?access_token=1234'
+    
+    const [match, token] = /[#?&]access_token=([\w]{32})/.exec(path)
+    
+    console.log(token) // 1234
+    
+    // can omit, unwanted values
+    const [, token] = /[#?&]access_token=([\w]{32})/.exec(path)
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="Fat Arrow"
+
+    const foo1 = () => ({})
+    
+    const foo2 = () => { return 1337}
+    
+    const foo3 = (x = {x:1}) => x
+
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="Properties"
+
+    const firstName = "Pierre"
+    const lastName = "Chappaz"
+
+    const user = {
+        firstName : firstName,
+        lastName : lastName
+    }
+
+    // shortcut as 
+    const user = {firstName, lastName}
+    
+```    
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="Properties: aliases"
+        
+const {
+    firstName : prenom,
+    lastName : nom
+} = user
+
+console.info(prenom,nom)
+
+```    
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="Properties: dynamic"
+        
+const propertyName = 'lastName'
+const propertyValue = 'Chappaz'
+
+const user = {
+    [propertyName] : propertyValue
+}   
+
+```    
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="ES2015 import / export"
+        
+// constants.js
+export const MY_CONSTANT = 1 
+
+// main.js
+import {MY_CONSTANT} from './constants'
+
+```    
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="ES2015 import / export"
+        
+// identity.js
+export default x => x
+
+// main.js
+import identity from './identity'
+
+```    
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="ES2015 import / export"
+        
+// identity.js
+const identity  = x => x
+
+export {identity,identity as default}
+
+// main.js
+import {identity} from './identity'
+import {identity as id} from './identity'
+
+identity(1) 
+id(1)
+
+```    
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="ES2015 spread operator"
+        
+const o1 = {firstName: "Tim"}
+const o2 = {lastName:"Barners-Lee", city: "london" }
+const user = {...o1,...o2}
+
+```    
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="Spread operator with array"
+        
+const a1 = [1,3]
+const a2 = [3,7]
+
+// easy concat
+const user = [...a1,...a2]
+
+```    
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer> 
+
+```js title="Spread operator in fn"
+        
+// ⚠️ No more "arguments" with fat arrows
+const takeFirstArg = (first,...others) => first
+
+const takeFirst = ([first,...others]) => first
+ 
+const omitLastName = ({lastName,...anyOtherProps}) => ({...anyOtherProps})
+
+```    
+
+</CodeSurfer>
+
+---
+
+## String Template  
+
+<CodeSurfer> 
+
+```js 
+        
+const a = "hello"
+const myTemplate = `${1+2} ${a}`
+
+String.raw`${1+2} ${a}`
+
+const log = (...args) => console.info(...args) 
+log`${1+2} ${a}`
+
+```    
+
+</CodeSurfer>
+
+---
+
+### More to learn
+
+
+http://javascript.info/
+
+[Lodash is your friend](https://lodash.com/)
+
+[You don't (always) need Lodash](https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore)
+
+---
+
+# ⚛ React
+
+---
+
+  
+<Image
+  src='https://ksassets.timeincuk.net/wp/uploads/sites/55/2015/10/backtothefuture-1-920x650.png'
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: 'black',
+  }}/> 
+
+
+---
+
+<CodeSurfer>
+
+```php
+<?php
+$link = mysql_connect('mysql_host', 'mysql_user', 'mysql_password')
+$query = 'SELECT * FROM my_table';
+$result = mysql_query($query)
+echo "<table>\n";
+while ($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    echo "\t<tr>\n";
+    foreach ($line as $col_value) {
+        echo "\t\t<td>$col_value</td>\n";
+    }
+    echo "\t</tr>\n";
+}
+echo "</table>\n";
+?>
+
+```
+
+```diff 2  subtitle="establish the cnx️"
+```
+
+```diff 3,4 subtitle="run a db query"
+```
+
+```diff 7,8,9 subtitle="output the result"
+```
+
+</CodeSurfer>
+
+---
+
+import test2 from './assets/table.png'
+
+## 🧙 A magical static html table
+
+<img src={test2}/>
+
+
+---
+
+## What is React? 
+
+<Appear>
+    <div>This is a library to build UI</div>
+    <div>focus on how should look the UI rather than how to change it</div>
+</Appear>
+
+---
+
+## 👻 Virtual DOM
+
+<Appear>
+    <div>
+        <HelloWorld/>
+    </div>        
+</Appear>
+
+---
+
+import virtual_dom_diff from './assets/virtual_dom_diff.jpg'
+
+<img src={virtual_dom_diff}/>
+
+---
+
+
+## 👻 Virtual DOM 
+
+
+[demo](https://claudiopro.github.io/react-fiber-vs-stack-demo/)
+    
+---
+
+## JSX: Declarative & Composable
+
+<CodeSurfer>
+
+```jsx 
+<Container name="myContent" activated>
+    <Content/>
+</Content>
+```
+
+```diff 1,3  subtitle="Use a component️"
+```
+
+```diff 1[10:26] subtitle="a property"
+```
+
+```diff 1[27:36] subtitle="boolean property"
+```
+
+```diff 2  subtitle="compose"
+```
+
+</CodeSurfer>
+
+---
+
+## Event Delegate 
+
+JSX event are camel case: onClick vs onclick 
+
+React mutualises event listener
+
+You should not call addEventListener / removeEventListener
+
+---
+
+<CodeSurfer>
+
+```jsx title="JSX in detail" 
+    <MyComponent 
+        name="users" 
+        data={[1,2,3]} 
+        activated>
+            <h1>💪</h1>
+    </MyComponent>
+```
+
+```diff 1  subtitle="custom component starts Uppercase"
+```
+
+```diff 2  subtitle="attributes can be strings"
+```
+
+```diff 3  subtitle="attributes can be any valid javascript type when between braces"
+```
+
+```diff 4  subtitle="orphan attributes are given a true boolean value"
+```
+
+```diff 5  subtitle="lower case component are interpreted as existing HTML tags"
+```
+
+
+</CodeSurfer>
+
+
+---
+
+
+<CodeSurfer>
+
+```jsx title="JSX" 
+<MyComponent 
+    style={{width:"100px"}}>
+        <h1>💪</h1>
+</MyComponent>
+```
+
+```diff 2  subtitle="style is an object"
+```
+
+```diff 2  subtitle="style property are the js version"
+```
+
+```diff 2  subtitle="min-width => minWidth"
+```
+
+
+</CodeSurfer>
+
+---
+
+<CodeSurfer>
+
+```js title="JSX" 
+<MyComponent className="my-css-class">
+    <h1>💪</h1>
+</MyComponent>
+```
+
+```diff 2  subtitle="style is an object"
+```
+
+```diff 2  subtitle="style property are the js version"
+```
+
+```diff 2  subtitle="min-width => minWidth"
+```
+
+
+</CodeSurfer>
+
+
+---
+
+
+<CodeSurferColumns>
+
+<Step>
+
+```jsx title="JSX" 
+<MyComponent name="users" active>
+    <h1>💪</h1>
+</MyComponent>
+```
+
+```js title="JavaScript" 
+```
+
+</Step>
+
+
+<Step>
+
+```diff title="JSX"
+```
+
+```js title="JavaScript" 
+React.createElement(MyComponent, {
+  name: "users",
+  active: true
+}, React.createElement("h1", null, "\uD83D\uDCAA"));
+```
+
+</Step>
+
+
+
+<Step>
+
+```diff title="JSX"
+```
+
+```diff 1[1:5] title="JSX" subtitle="React must be in the scope"
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+
+---
+
+
+<Appear>
+    <div>JSX Prevents Injection Attacks</div>
+    <div>Can output SVG , XML ... </div>
+    <div>Enforces React declarative way</div>
+</Appear>
+
+---
+
+
+<CodeSurfer>
+
+```js title="Tricks" 
+// uses expressions to condition rendering
+const View = ({isVisible,children}) => {isVisible && children}
+
+// quickly debug 😍
+const Message = ({message}) => console.info(message) || <div>{message}</div>
+```
+
+```diff 2 subtitle="Accept only expression, 'if' is not an expression see AST"
+```
+
+```diff 5 subtitle="console.info returns void , the second expression is evaluated 💪"
+```
+
+
+</CodeSurfer>
+
+
+---
+
+## Dive in React 🏊
+
+---
+
+## React components
+
+
+<Appear>
+    <div>must have a render function</div>
+    <div>may have properties</div>
+    <div>may have a state</div>
+    <div>may have lifecycle methods</div>
+</Appear>
+
+---
+
+
+<CodeSurfer>
+
+```js title="Stateless component" subtitle="a simple render function" 
+const Component = ({name}) => <h1>{name}</h1>
+``` 
+
+```js title="Stateless component" subtitle="No render"
+        const Component = () => null 
+        const Component = () => undefined 
+        const Component = () => false
+``` 
+
+```js title="Stateless component" subtitle="returns multiple nodes"
+        const Component = (props) => [<option/>,<option/>,<option/>]
+``` 
+
+```js title="Stateless component" subtitle="returns multiple nodes"
+        const Component = (props) => 
+            <>
+                <option/>
+                <option/>
+            </>
+
+        const Component = (props) => 
+            <React.Fragment>
+                <option/>
+                <option/>
+            </React.Fragment>
+
+
+``` 
+
+</CodeSurfer> 
+
+---
+
+## Stateful component
+
+<CodeSurfer title="Stateful component">
+
+```js
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { counter: 0 };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(({ counter }) => ({
+      counter: counter + 1
+    }));
+  }
+
+  render() {
+    return (
+      <>
+        <h1>{this.state.counter}</h1>
+        <button onClick={this.handleClick}>click me</button>
+      </>
+    );
+  }
+}
+```
+</CodeSurfer>
+
+---
+
+
+## Stateful component
+
+Using https://babeljs.io/docs/en/babel-plugin-proposal-class-properties
+
+<CodeSurfer title="Stateful component">
+
+```js
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { counter: 0 };    
+  }
+
+  handleClick = () => {
+    this.setState(({ counter }) => ({
+      counter: counter + 1
+    }));
+  }
+
+  render() {
+    return (
+      <>
+        <h1>{this.state.counter}</h1>
+        <button onClick={this.handleClick}>click me</button>
+      </>
+    );
+  }
+}
+```
+</CodeSurfer>
+
+---
+
+## Lifecycle
+
+<Appear>
+    <div>constructor</div>
+    <div>render</div>
+    <div>componentDidMount</div>
+    <div>componentDidUpdate</div>
+    <div>componentWillUnmount</div>
+    <div>shouldComponentUpdate</div>    
+    <div> More lifecycles are available checkout the documentation</div>   
+</Appear>
+
+---
+
+import scu from './assets/should-component-update.png'
+
+## Rendering
+
+
+<img src={scu}/>
+
+---
+
+## Rendering
+
+
+React doesn't optimize the computation
+
+React optimize the rendering
+
+---
+
+<CodeSurfer>
+
+```jsx subtitle="optimize DOM mutation using key"
+
+const List = ({ items }) => (
+  <ul>
+    {items.map(({ id, name }) => (
+      <Item key={id} name={name} />
+    ))}
+  </ul>
+)
+```
+
+```diff 5[13:20]
+```
+
+</CodeSurfer>
+
+---
+
+
+## Optimizing stateful component
+
+
+<CodeSurfer> 
+
+```jsx
+
+class Person extends React.Component {
+  render() {
+    console.info("RENDER");
+    const { lastName, firstName, city } = this.props;
+    return (
+      <ul>
+        <li>{lastName}</li>
+        <li>{firstName}</li>
+        <li>{city}</li>
+      </ul>
+    );
+  }
+}
+```
+
+```js
+class Person extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    const { lastName, firstName, city } = nextProps;
+    const {
+      lastName: currLastName,
+      firstName: currFirstName,
+      city: currCity
+    } = this.props;
+
+    return !(
+      lastName === currLastName &&
+      firstName === currFirstName &&
+      city === currCity
+    );
+  }
+
+  render() {
+    console.info("RENDER");
+    const { lastName, firstName, city } = this.props;
+    return (
+      <ul>
+        <li>{lastName}</li>
+        <li>{firstName}</li>
+        <li>{city}</li>
+      </ul>
+    );
+  }
+}
+```
+
+
+```js
+
+class Person extends React.PureComponent {
+ 
+  render() {
+    console.info("RENDER");
+    const { lastName, firstName, city } = this.props;
+    return (
+      <ul>
+        <li>{lastName}</li>
+        <li>{firstName}</li>
+        <li>{city}</li>
+      </ul>
+    );
+  }
+}
+
+```
+
+</CodeSurfer>
+
+[source](https://codesandbox.io/s/shouldcomponentupdate-48bfy)
+
+---
+
+
+## Optimizing stateless component
+
+- React.memo
+
+- function component renders the same result given the same props
+
+- React will skip rendering the component, and reuse the <u>last rendered result</u>.
+
+
+[memo](https://codesandbox.io/s/memo-vqbn2)
+
+---
+
+<Notes>
+
+   - Be carreful passing no value, means null. 
+   - Default is only used when no Provider is available in the tree
+
+</Notes>
+ 
+
+## Context 
+
+    Context provides a way to pass data
+    through the component tree without 
+    having to pass props down manually 
+    at every level.
+ 
+ 
+[context](https://codesandbox.io/s/react-trainingreact-training-context-opt-qblft)
+ 
+
+
+---
+
+## Hooks 
+
+- React is functional at its 💙  
+- functional component can now be stateful thanks to the hooks
+
+ <Appear>
+ 
+    <li>Reuse stateful logic between components</li>
+    <li>React components have always been closer to functions.</li>
+    <li>Promotes functional programming</li>
+
+  </Appear> 
+
+---
+
+import grimlins from './assets/grimlins.jpeg'
+
+## Rules of the hooks 
+
+<img src={grimlins}/>
+
+The magic come with a price
+
+---
+
+## Rules of the hooks
+
+
+<Appear>
+
+- Only call Hooks at the top level
+
+
+- Only call Hooks from React function components
+
+
+- Hooks must be called in the same order
+
+
+- Hooks start with use
+
+
+</Appear> 
+
+
+
+<Notes>
+
+- Don’t call Hooks inside loops, conditions, or nested functions.
+
+- Don’t call Hooks from regular JavaScript functions. (There is just one other valid place to call Hooks — your own custom Hooks. We’ll learn about them in a moment.)
+
+- React assumes that if you call useState many times, you do it in the same order during every render. We’ll come back to why this works and when this is useful later.
+
+- function’s name starts with ”use” and it calls other Hooks, we say it is a custom Hook
+
+</Notes>
+
+
+---
+
+## useState
+
+<CodeSurfer>
+
+```js 
+
+const [state, setState] = useState(initialState);
+
+```
+
+```js 
+
+const [state, setState] = useState(() => fibbonacci(50)));
+
+```
+
+```js 
+
+const [counter, setCounter] = useState(0);
+setState(previousCounter => previousCounter++)
+setState(counter++)
+
+```
+
+</CodeSurfer>
+
+[Exemple](https://codesandbox.io/s/charming-mountain-mf84w)
+
+<Notes>
+
+- no merge by default
+- expensive init fn 
+- if state is called with the same value , nothing would change
+
+</Notes>
+
+---
+
+## useReducer
+
+<Appear>
+    <div>ability to manipulate more complex state</div>
+    <div>based on the Redux design pattern</div>
+</Appear>
+
+---
+
+<CodeSurfer>
+
+```js
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+
+```
+
+```diff  15
+```
+
+```diff  15[40:47] subtitle="reducer function"
+```
+
+```diff  3 subtitle="(currentState,action) => newState"
+```
+
+
+```diff  15[17:24],19[24:58] 
+```
+
+```diff  5,6
+```
+
+
+</CodeSurfer>
+
+---
+
+## useEffect
+
+When should you use it?
+
+<Appear>
+
+- component mutations
+
+
+- subscriptions
+
+
+- fetch / xhr 
+
+
+- setTimeout / setInterval / requestAnimationFrame
+
+
+
+</Appear>
+ 
+
+---
+
+<CodeSurfer>
+
+```js
+
+const Clock = () => {
+    const now = () => new Date().toLocaleTimeString()
+    const [currentTime, setTime] = useState(now())
+    useEffect(() => {
+        const handle = setInterval(() => {
+            setTime(now())
+        }, 700)
+        return () => clearInterval(handle)
+    }, [])
+
+    return (<pre>It is {currentTime}</pre>)
+
+}
+ 
+```
+
+```diff 9 subtitle="returns a function to clean"
+```
+
+
+</CodeSurfer>
+
+---
+
+## useContext
+
+Ability to consume a given context
+
+ [Example](https://codesandbox.io/s/react-trainingreact-training-context-opt-qblft)
+
+---
+
+## Forms
+
+Two ways to manipulate forms: uncontrolled and controlled
+
+[Uncontrolled field example](https://codesandbox.io/s/form-uncontrolled-0rbz9)
+
+[Controlled field example](https://codesandbox.io/s/form-controlled-kr0lz) 
+ 
+---
+
+## Render Props
+
+Useful to compose Components.
+
+A property user function called from the render function with it's own API
+
+An API that abstract the data structure.
+
+An API with methods to ease rendering
+
+
+[Render props example](https://codesandbox.io/s/render-function-hj7t6)
+
+---
+
+
+## How to plumb components all together ? 
+
+<Appear>
+
+- simple props : callback / value 
+
+
+- context 
+
+
+- managed props: subscription
+
+
+- composition
+
+
+</Appear>
+
+---
+
+## Optimize a class component
+
+[class component example](https://codesandbox.io/s/react-training-component-update-with-class-orsdh) 
+
+---
+
+## Optimize a functional component
+
+[functional component example](https://codesandbox.io/s/react-training-component-update-with-fn-c8tzm)
+
+---
+
+## Optimize a React App
+
+React Profiler 
+
+Setup if not using create-react-app
+
+Temporarily disable all Chrome extensions, especially React DevTools. They can significantly skew the results!
+
+Not everyone has a $3000 computer: Slow down your CPU
+
+---
+
+## HoC: High Order Component
+
+<CodeSurfer title="HoC">
+
+```js
+function withLoader(WrappedComponent) {
+  class Enhanced extends React.Component {
+    render() {
+      const { loading, ...others } = this.props;
+      return (
+        <>
+          {!loading && <WrappedComponent {...others} />}
+          {loading && <span>Loading ...</span>}
+        </>
+      )
+    }
+  }
+
+  return Enhanced;
+}
+```
+
+</CodeSurfer>
+
+---
+
+## HoC
+
+
+⚠ Many pitfall: static, refs, displayName ...
+
+
+---
+
+
+## Server Rendering
+
+<CodeSurfer>
+
+```js   
+ReactDOMServer.renderToString(element)
+
+ReactDOMServer.renderToStaticMarkup(element)
+
+ReactDOM.hydrate()
+```
+</CodeSurfer>
+
+[SSR exmample](https://codesandbox.io/s/4w7l73xj59)
+
+---
+ 
+<Image
+  src='https://source.unsplash.com/random/768x2048?brooklyn'
+  style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: 'black',
+  }}>
+  
+<h1>🍲Redux</h1>
+  
+  </Image>
+
+---
+
+# 🍲 What is Redux?
+
+
+Definiton: 
+
+<Appear>
+
+- Redux is a predictable state container for JavaScript applications. 
+
+
+- It helps you write applications that behave consistently, run in different environments (client, server, and native),
+
+ 
+- Easy to test.
+
+
+- Not tight to any library like React
+
+
+</Appear>
+
+
+
+---
+
+import reduxFlow from './assets/redux-flow.png'
+
+<img src={reduxFlow}/>
+
+
+---
+
+## Redux Actions
+
+
+
+<CodeSurfer>
+
+```js 4,5,6,7 subtitle="actions are simple object with a type property"
+export const USER_PREFERENCE_CHANGE = "USER_PREFERENCE_CHANGE";
+
+export const changeUserPreference = (userPreference) => (
+    {
+      type: USER_PREFERENCE_CHANGE,
+      userPreference
+    }
+);
+
+```
+
+```diff 1 subtitle="action type declaration"
+```
+
+```diff 3 subtitle="an action creator function"
+```
+
+
+</CodeSurfer>  
+
+
+### 
+
+---
+
+## Redux reducer 
+
+<CodeSurfer>
+
+```js 
+    (state,action) => newState 
+```
+
+</CodeSurfer>
+
+---
+
+## Redux reducer
+
+<CodeSurfer>
+
+```js 
+    const reducer = (state = {currency:"EUR",lang: "fr"} ,action) => {
+        switch(action.type) {
+            case USER_PREFERENCE_CHANGE: {
+                return {...state,userPreference: action.userPreference}            
+            }
+        
+            default: 
+                return state   
+        }
+    }
+```
+
+```diff 1,7,8 subtitle="default value will be used as the initial state" 
+```
+
+```diff 1,7,8 subtitle="Redux always dispatch an INIT event" 
+```
+
+```diff 4 subtitle="state must be immutable" 
+```
+
+
+</CodeSurfer>  
+
+
+---
+
+## Store
+
+
+<CodeSurfer >
+
+```js subtitle="Promotes a global application state"
+const store = createStore(reducer, applyMiddleware([m1,m2]));
+```
+
+```js subtitle="you may subscribe to the store"
+const store = createStore(reducer, applyMiddleware([m1,m2]));
+store.subscribe(() => {})
+```
+
+```diff 1 subtitle="you may apply middleware"
+```
+
+
+</CodeSurfer>  
+
+---
+
+# Hints 
+
+<CodeSurfer>
+
+```js
+Do Not Mutate State
+```
+
+```js
+Reducers Must Not Have Side Effects
+```
+
+```js
+Do Not Put Non-Serializable Values in State or Actions
+```
+
+```js
+Only One Redux Store Per App
+```
+
+```js
+Prefer use of feature folders
+```
+
+```js
+Reducers Should Own the State Shape
+```
+
+```js
+Model Actions as "Events", Not "Setters"
+```
+
+```js
+Write Meaningful Action Names
+```
+
+```js
+Use Selector Functions to Read from Store State
+```
+
+```js
+Avoid Putting Form State In Redux
+```
+
+
+</CodeSurfer>
+
+---
+
+## Redux Connect 
+
+<CodeSurfer>
+
+```js
+const DeliveryInfo = ({
+    firstName,
+    lastName,
+    address,
+    preferredMode,
+    onEdit 
+}) => {/* render */}
+```
+
+```js subtitle="Container component are created using -connect-"
+const ConnectedDeliveryInfo = connect(
+    mapDispatchToProps,
+    mapStateToProps
+)(DeliveryInfo) 
+```
+
+```diff subtitle="Connect creates an HoC"
+``` 
+
+```js
+const mapStateToProps = (state) => ({
+    firstName : state.user.firstName,
+    lastName : state.user.lastName,
+    address : state.user.address,
+    preferredMode :  state.userPreference.preferredMode
+})
+```
+
+```js
+const mapDispatchToProps = (dispatch) => ({
+    onEdit : value => dispatch(changeUserPreference(value))
+})
+```
+
+
+```js 1 subtitle="Connect behind the scene"
+Connect does a subscribe to the store
+Executes mapStateToProps
+Executes mapDispatchToProps
+If ≠ than previous, Component is rendered.
+By default, connect uses a shallow equals
+```
+
+```diff 2
+```
+
+```diff 3
+```
+
+```diff 4
+```
+
+```diff 5
+```
+
+
+</CodeSurfer>
+
+<Notes> 
+If a mapStateToProps function is specified, the new wrapper component will subscribe to Redux store updates. This means that any time the store is updated, mapStateToProps will be called
+
+If your mapStateToProps function is declared as taking two parameters, it will be called whenever the store state changes or when the wrapper component receives new props (based on shallow equality comparisons)
+
+</Notes>
+
+---
+
+    mapStateToProps
+    
+<Appear>    
+    <div>Functions Should Be Fast</div>    
+    <div>Functions Should Be Pure and Synchronous</div>     
+    <div> Return Values Determine If Your Component Re-Renders </div>
+    <div> mapStateToProps Will Not Run if the Store State is the Same </div>
+    <div> Cool : combineReducers optimize the output state for US </div>
+</Appear>
+    
+
+---
+
+## Selector
+
+<CodeSurfer>
+
+```js subtitle="starts with getXXXX"
+const getFirstName = (state) => 
+    state.userInfo.firstName
+
+const getPreferredDeliveryMode = (state) => 
+    state.userPreference.deliveryMode
+```
+
+</CodeSurfer>
+
+
+---
+
+
+## Selector using Reselect
+
+<CodeSurfer>
+
+```js subtitle="starts with getXXXX"
+
+const getUserInfo = state => state.userInfo
+
+const getFirstName = createSelector([getUserInfo], userInfo => userInfo.firstName)
+
+```
+
+```diff subtitle="memoize the latest result based on the input parameter"
+```
+
+</CodeSurfer>
+
+
+---
+
+
+## Manage a single state 
+
+use `combineReducers`
+
+---
+
+[cant-replace-redux-with-hooks](https://www.simplethread.com/cant-replace-redux-with-hooks/)
+[why-use-redux](https://blog.logrocket.com/why-use-redux-reasons-with-clear-examples-d21bffd5835/)
+
+---
+
+ 
+[Redux Dev Tools](https://github.com/zalmoxisus/redux-devtools-extension)
+
+
+---
+## Middlewares
+
+    redux-thunk 
+    
+    redux-saga
+    
+    redux-observable
+
+---
+
+## Redux Thunk 
+
+A thunk is a function that wraps an expression to delay its evaluation.
+
+[14 lines of code](https://github.com/reduxjs/redux-thunk/blob/master/src/index.js)
+
+--- 
+
+<CodeSurfer>
+
+```js subtitle="regular action creator"
+
+export const changeUserPreference = (userPreference) => (
+    {
+      type: USER_PREFERENCE_CHANGE,
+      userPreference
+    }
+);
+
+```
+
+```js subtitle="async action creator"
+
+export const saveUserPreference = (userPreference) => (dispatch, getState) =>  (
+    dispatch({
+      type: REQUEST_SAVE_USER_PREFERENCE      
+    })
+    
+    api.saveUserPreference(userPreference).then(() => {
+        dispatch({
+          type: RESPONSE_SAVE_USER_PREFERENCE      
+        })
+    })
+);
+
+```
+
+</CodeSurfer>
+
+---
+
+Github repo [react-training](https://github.com/hbourzeix/react-training)
+
+### Issues and PRs are welcomed ❤
+
+
+---
+
+🍻 BEER TENDER 🍻
+
+Let's code!   
+
+Aurélien Bénéfice @ Publishers  
+Hervé Bourzeix @ Publishers  
+
+---
+
+- create react-workshop folder
+- check your NodeJs installation (>= 10.x)
+- npm init -y  
+- npm install --save-dev webpack webpack-cli html-webpack-plugin webpack-dev-server 
+
+---
+
+<CodeSurfer>
+
+```js subtitle="create a webpack.config.js file "
+
+
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+  const path = require('path');
+  module.exports = {
+    entry: './index.js',
+    output: {
+      path: path.resolve(__dirname, './dist'),
+      filename: 'index_bundle.js'
+    },
+    plugins: [new HtmlWebpackPlugin()]
+  };
+```
+
+</CodeSurfer>
+
+---
+
+
+<CodeSurfer>
+
+```js subtitle="create an src/index.js "
+
+console.info('Hello World')
+
+```
+
+</CodeSurfer>
+
+
+---
+
+
+<CodeSurfer>
+
+```js subtitle="edit your package.json file"
+
+ 
+  {
+    "scripts": {     
+      "build": "webpack --mode development"
+    },
+  }
+
+
+```
+
+
+```diff subtitle="npm run build"
+```
+
+</CodeSurfer>
+
+---
+
+## Babel
+
+npm install --save-dev @babel/core @babel/cli  babel-loader @babel/preset-env
+
+---
+
+## Babel
+
+
+
+
+<CodeSurfer>
+
+```js subtitle="Add a .babelrc file"
+  module: {
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+    ]
+  }
+```
+
+</CodeSurfer>
+
+
+
+---
+
+## React
+
+npm install --save-dev react react-dom
+
+
+---
+
+
+<CodeSurfer>
+
+```js subtitle="edit your package.json file"
+
+ 
+  {
+    "scripts": {     
+      "build" : "webpack --mode development",
+      "start" : "webpack-dev-server"
+    },
+  }
+
+
+```
+
+
+```diff subtitle="npm start"
+```
+
+</CodeSurfer>
+
+---
+
+
+<CodeSurfer>
+
+```js subtitle="Edit the src/index.js "
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+function App() {
+  return (
+    <div>
+      <h1>Hello</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
+}
+
+const rootElement = document.createElement('div');
+document.body.appendChild(rootElement)
+ReactDOM.render(<App />, rootElement);
+
+```
+
+</CodeSurfer>
+
+[Source](https://raw.githubusercontent.com/hbourzeix/react-training/workshop/react-workshop/v0-beertender-setup/src/index.js)
+
+
+---
+
+## Checkout 
+
+git clone git@github.com:hbourzeix/react-training.git
+
+---
+
+## Create a React stateless component 
+
+Display a beer description using the static JSON file
+ 
+---
+
+## Setup Redux
+
+`I am feeling thirsty® button` 
+
+- Create a `I am feeling thirsty®` component in the header
+
+- creates the reducer 
+
+- setup the store using thunk middleware
+
+- Wrap the App with a Provider 
+
+- creates following actions: 
+    REQUEST_FEELING_THIRSTY
+    RESPONSE_FEELING_THIRSTY   
+
+- implements the reducer
+
+- create the connected BeerDescription
+
+
+---
+
+Feedback? 
+
+---
+
