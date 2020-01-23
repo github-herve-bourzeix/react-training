@@ -180,8 +180,8 @@ const most_used = "my ref can't be mutated"
 
 ```js
 const user = {
-  firstName: "Pierre",
-  lastName: "Chappaz",
+  firstName: "Georges",
+  lastName: "Charpak",
   location: { city: "genève", countryCode: "ch" }
 };
 
@@ -243,8 +243,8 @@ const {
 
 ```js title="Properties"
 
-    const firstName = "Pierre"
-    const lastName = "Chappaz"
+    const firstName = "Georges"
+    const lastName = "Charpak"
 
     const user = {
         firstName : firstName,
@@ -282,7 +282,7 @@ console.info(prenom,nom)
 ```js title="Properties: dynamic"
         
 const propertyName = 'lastName'
-const propertyValue = 'Chappaz'
+const propertyValue = 'Charpak'
 
 const user = {
     [propertyName] : propertyValue
@@ -1811,6 +1811,20 @@ console.info('Hello World')
 ## Babel
 
 npm install --save-dev @babel/core @babel/cli  babel-loader @babel/preset-env
+
+---
+## babel 
+
+<CodeSurfer>
+
+```js
+{
+  "presets" : ["@babel/preset-env",
+  "@babel/preset-react"]
+}
+```
+
+</CodeSurfer>
 
 ---
 
